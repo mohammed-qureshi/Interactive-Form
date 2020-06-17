@@ -20,6 +20,13 @@ jobRole.addEventListener('input', () => {
     }
 });
 
+// design.addEventListener('input', () => {
+//     if(design.value === 'theme') {
+//         for(let i = 1; i < color.length;) {
+//             color.options[i] = null;
+//         }
+//         color.options[0].innerHTML = 'Please select a design'
+
 
 // T-SHIRT INFO CODE
 // Got all the t-shirt colors
@@ -72,7 +79,7 @@ design.addEventListener('input', () => {
 
 
 // REGISTER FOR ACTIVITES CODE
-// Got all the activities 
+// Got all the activies 
 const all = document.querySelector('input[name=all]');
 const jsFrameworks = document.querySelector('input[name=js-frameworks]');
 const jsLibs = document.querySelector('input[name=js-libs]');
@@ -126,6 +133,8 @@ activities.addEventListener('change', () => {
     check(node, jsLibs);
 });
 
+//const dis = jsFrameworks.getAttribute('data-day-and-time')
+
 
 // PAYMENT INFO CODE
 // Got all the payment options and the payment selector
@@ -134,8 +143,8 @@ const creditCard = document.getElementById('credit-card');
 const paypal = document.getElementById('paypal');
 const bitcoin = document.getElementById('bitcoin');
 
-// Hides the paypal and bitcoin payment options initially and sets the payment value to credit card
-payment.value = 'credit card'
+// Hides the paypal and bitcoin payment options initially
+payment.value = 'credit card';
 paypal.style.display = 'none';
 bitcoin.style.display = 'none';
 
@@ -162,28 +171,20 @@ payment.addEventListener('input', () => {
 
 
 // Form Validation Code
-// Got all the users input to validate
 const form = document.getElementById('form');
 const email = document.getElementById('mail');
 const activitiesInput = document.querySelectorAll('.activities input');
 const creditCardNum = document.getElementById('cc-num');
 const zipcode = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
-// Created a p element for the error message on the name input
-const p = document.createElement('p');
-p.style.color = 'red';
 
 // Checks if the name input is empty
 const nameValidator = () => {
     if(name.value.length > 0) {
         name.style.border = 'white solid 5px';
-        p.remove();
         return true;
     } else {
         name.style.border = 'red solid 3px';
-        const forName = document.querySelector('label[for=name]');
-        p.textContent = 'The name field can not be empty';
-        forName.appendChild(p);
         return false;
     }
 }
@@ -216,7 +217,8 @@ const activitiesValidator = () => {
 
 // Checks if the credit card number is between 13 and 16 digits.
 const creditCardNumberValidator = () => {
-    if(/^\d{13,16}$/.test(creditCardNum.value)) {
+    const creditCardLength = creditCardNum.value.length;
+    if(creditCardLength >= 13 && creditCardLength <= 16) {
         creditCardNum.style.border = 'white solid 3px'
         return true;
     } else {
@@ -225,9 +227,9 @@ const creditCardNumberValidator = () => {
     }
 }
 
-// Checks if the zipcode is 5 digits
+// Checks if the zipcode is greater than or equal to 5 digits
 const zipcodeValidator = () => {
-    if(/^\d{5}$/.test(zipcode.value)) {
+    if(zipcode.value.length >= 5 ) {
         zipcode.style.border = 'white solid 3px';
         return true;
     } else {
@@ -238,7 +240,7 @@ const zipcodeValidator = () => {
 
 // Checks if the cvv is 3 digits long.
 const cvvValidator = () => {
-    if(/^\d{3}$/.test(cvv.value)) {
+    if(cvv.value.length === 3) {
         cvv.style.border = 'white solid 3px';
         return true;
     } else {
@@ -261,7 +263,7 @@ form.addEventListener('submit', (e) => {
     if(!activitiesValidator()) {
         e.preventDefault();
     }
-    if(payment.value === 'credit card') {
+    if(payment.value = 'credit card') {
         creditCardNumberValidator();
         if(!creditCardNumberValidator()) {
             e.preventDefault();
